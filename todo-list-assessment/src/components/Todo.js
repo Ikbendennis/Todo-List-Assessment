@@ -22,7 +22,7 @@ function Todo({todosList, completeTodo, deleteTodo, updateTodo }) {
     }
 
   return todosList.map((todo, index)=> (
-      <div className={todo.isComplete ? 'todo-row-completed':'todo-row' } key={index}>
+      <div className={todo.isComplete ? 'todo-row complete':'todo-row' } key={index}>
           {/* When clicking on the todo, you can change the completion value */}
           <div key={todo.id} onClick={()=> completeTodo(todo.id)}>
               {todo.text}

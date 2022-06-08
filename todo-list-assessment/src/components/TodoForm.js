@@ -1,8 +1,12 @@
 
-import React, {useState} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 
 function TodoForm(props) {
-    const [input, setInput] = useState('')
+    const [input, setInput] = useState(props.edit ? props.edit.value : '')
+    const setFocus = useRef(null)
+    useEffect(()=>{
+        setFocus.current.focus()
+    })
 
     const applyChange = e =>{
         setInput(e.target.value);
@@ -21,17 +25,37 @@ function TodoForm(props) {
     }
 
     return (
-    <form className='todo-form' onSubmit={handleSubmit}>
-        <input 
-        type='text' 
-        placeholder='Add something todo' 
-        value={input} 
-        name='text' 
-        className='todo-input'
-        onChange={applyChange}
-        />
-        <button className='todo-button'>Add</button>
-    </form>
+        <form onSubmit={handleSubmit} className='todo-form'>
+        {props.edit ? (
+          <>
+            <input
+              placeholder='Update the todo'
+              value={input}
+              onChange={applyChange}
+              name='text'
+              ref={setFocus}
+              className='todo-input edit'
+            />
+            <button onClick={handleSubmit} className='todo-button edit'>
+              Update
+            </button>
+          </>
+        ) : (
+          <>
+            <input
+              placeholder='Add a todo'
+              value={input}
+              onChange={applyChange}
+              name='text'
+              className='todo-input'
+              ref={setFocus}
+            />
+            <button onClick={handleSubmit} className='todo-button'>
+              Add
+            </button>
+          </>
+        )}
+      </form>
   )
 }
 
