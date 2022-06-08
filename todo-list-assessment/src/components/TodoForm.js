@@ -12,7 +12,8 @@ function TodoForm(props) {
     e.preventDefault();
 
     props.onSubmit({
-        id: Math.floor(Math.random() * 10000),
+        //generate a random id to differentiate between todos
+        id: Math.floor(Math.random() * 99999),
         text: input
     });
 
